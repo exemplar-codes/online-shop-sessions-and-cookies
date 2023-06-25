@@ -5,8 +5,10 @@
             <li class="main-header__item"><a href="/products" class="<%= myActivePath === "/products" ? "active": "" %>">Products</a></li>
             <li class="main-header__item"><a href="/cart" class="<%= myActivePath === "/cart" ? "active": "" %>">Cart</a></li>
             <li class="main-header__item"><a href="/orders" class="<%= myActivePath === "/orders" ? "active": "" %>">Orders</a></li>
-            <li class="main-header__item"><a href="/admin/add-product" class="<%= myActivePath === "on-admin-page" ? "active": "" %>">Add Product</a></li>
-            <li class="main-header__item"><a href="/admin/products" class="<%= myActivePath === "/admin/products" ? "active": "" %>">Admin Products</a></li>
+            <% if (locals.isAuthenticated) { %>
+                <li class="main-header__item"><a href="/admin/add-product" class="<%= myActivePath === "on-admin-page" ? "active": "" %>">Add Product</a></li>
+                <li class="main-header__item"><a href="/admin/products" class="<%= myActivePath === "/admin/products" ? "active": "" %>">Admin Products</a></li>
+            <% } %>
         </ul>
         <% if(!myActivePath.includes('404')) { %>
             <ul>
@@ -25,11 +27,13 @@
         <% } %>
 
         <ul class="main-header__item-list main-header__item-list__right-side">
-            <!-- <li class="main-header__item"><a href="/logout">Logout</a></li> -->
-
-            <li class="main-header__item">
-                <a href="/login" class="<%= myActivePath === "/login" ? "active": "" %>">Login</a>
-            </li>
+            <% if(locals.isAuthenticated) { %>
+                <li class="main-header__item"><a href="/logout">Logout</a></li>
+            <% } else { %>
+                <li class="main-header__item">
+                    <a href="/login" class="<%= myActivePath === "/login" ? "active": "" %>">Login</a>
+                </li>
+            <% } %>
         </ul>
     </nav>
 </header>
