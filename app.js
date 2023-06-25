@@ -47,8 +47,18 @@ app.get("/try", async (req, res, next) => {
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
+
+// EXPLICIT CONTROL ROUTES, FOR DEBGUGGING
 app.post("/delete-all-data", async (req, res, next) => {
   await deleteAllCollections();
+  res.redirect("/");
+});
+
+app.post("/reset-all-data", async (req, res, next) => {
+  await deleteAllCollections();
+  await prepopulateIrrelevantSampleData();
+  const firstSampleUser = await prepopulateUsers();
+  await prepopulateProducts(firstSampleUser);
   res.redirect("/");
 });
 
