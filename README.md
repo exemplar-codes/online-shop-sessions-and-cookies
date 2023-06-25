@@ -1,4 +1,4 @@
-# online-shop-with-nosql-mongoose [~~online-shop-with-nosql-mongodb~~](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb) [~~online-shop-express-ejs-mvc~~](https://github.com/exemplar-codes/online-shop-express-ejs-mvc)
+# online-shop-sessions-and-cookies [~~online-shop-with-nosql-mongoose~~](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose) [~~online-shop-with-nosql-mongodb~~](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb) [~~online-shop-express-ejs-mvc~~](https://github.com/exemplar-codes/online-shop-express-ejs-mvc)
 An Online shop app with realistic features, code.
 
 Focus of this project:
@@ -7,7 +7,7 @@ Focus of this project:
 3. ~~Explore NoSQL databases~~
 4. ~~Explore MongoDB~~
 5. ~~Rewrite the app using these~~
-6. Explore Mongoose
-7. Rewrite the app using it
-
-Note: Using a new cluster for this
+6. ~~Explore Mongoose~~
+7. ~~Rewrite the app using it~~
+8. Explore Sessions and Cookies
+9. Add login and authentication flow (not authentication logic or details)
