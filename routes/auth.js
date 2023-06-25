@@ -1,19 +1,11 @@
+const authController = require("../controllers/auth");
+
 const authRouter = require("express").Router();
 
-authRouter.get("/login", (req, res, next) => {
-  res.render("auth/login", {
-    docTitle: "Login",
-    myActivePath: "/login",
-  });
-});
+authRouter.get("/login", authController.getLoginPage);
 
-authRouter.post("/login", (req, res, next) => {
-  res.redirect("/");
-});
+authRouter.post("/login", authController.postLogin);
 
-authRouter.get("/logout", (req, res, next) => {
-  //   res.send("Log out");
-  res.redirect("/");
-});
+authRouter.get("/logout", authController.getLogout);
 
 module.exports = authRouter;
