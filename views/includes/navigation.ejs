@@ -25,7 +25,11 @@
         <% } %>
 
         <ul class="main-header__item-list main-header__item-list__right-side">
-            <li class="main-header__item"><a href="/login">Login</a></li>
+            <!-- <li class="main-header__item"><a href="/logout">Logout</a></li> -->
+
+            <li class="main-header__item">
+                <a href="/login" class="<%= myActivePath === "/login" ? "active": "" %>">Login</a>
+            </li>
         </ul>
     </nav>
 </header>

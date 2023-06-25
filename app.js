@@ -19,6 +19,7 @@ const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
 const { User, prepopulateUsers } = require("./models/User");
 const { Product, prepopulateProducts } = require("./models/Product");
+const authRouter = require("./routes/auth.js");
 
 // app.set('view engine', 'pug');
 // app.set('views', 'views'); // not needed for this case, actually
@@ -45,6 +46,7 @@ app.get("/try", async (req, res, next) => {
   return res.json({ time: new Date().toLocaleTimeString() });
 });
 
+app.use(authRouter);
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
