@@ -45,10 +45,24 @@ const prepopulateIrrelevantSampleData = async () => {
   }
 };
 
+const deleteAllCollections = async () => {
+  const db = getDb();
+  // delete the users and products collections
+
+  await db.collection("products").drop();
+  await db.collection("users").drop();
+  await db.collection("trial-collection").drop();
+  await db.collection("carts").drop();
+  await db.collection("orders").drop();
+
+  console.log("Database cleared!");
+};
+
 module.exports = {
   mongooseConnect,
   getDb,
   prepopulateIrrelevantSampleData,
+  deleteAllCollections,
 };
 
 // Note: Code below is not being used, left for comparison
