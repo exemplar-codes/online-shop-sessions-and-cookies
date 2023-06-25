@@ -47,6 +47,10 @@ app.get("/try", async (req, res, next) => {
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
+app.post("/delete-all-data", async (req, res, next) => {
+  await deleteAllCollections();
+  res.redirect("/");
+});
 
 app.use(errorController.get404);
 
