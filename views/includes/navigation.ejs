@@ -9,17 +9,23 @@
             <li class="main-header__item"><a href="/admin/products" class="<%= myActivePath === "/admin/products" ? "active": "" %>">Admin Products</a></li>
         </ul>
         <% if(!myActivePath.includes('404')) { %>
-            <form method="POST" action="/admin/delete-all-products">
-                <button type="submit">Delete all products</button>
-            </form>
-            &nbsp;&nbsp;
-            <form method="POST" action="/reset-all-data">
-                <button type="submit">Reset all data</button>
-            </form>
-            &nbsp;&nbsp;
-            <form method="POST" action="/delete-all-data">
-                <button type="submit">Delete all data</button>
-            </form>
+            <ul>
+                <form method="POST" action="/admin/delete-all-products">
+                    <button type="submit">Delete all products</button>
+                </form>
+                &nbsp;&nbsp;
+                <form method="POST" action="/reset-all-data">
+                    <button type="submit">Reset all data</button>
+                </form>
+                &nbsp;&nbsp;
+                <form method="POST" action="/delete-all-data">
+                    <button type="submit">Delete all data</button>
+                </form>
+            </ul>
         <% } %>
+
+        <ul class="main-header__item-list main-header__item-list__right-side">
+            <li class="main-header__item"><a href="/login">Login</a></li>
+        </ul>
     </nav>
 </header>
