@@ -11,6 +11,7 @@ const {
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -20,6 +21,7 @@ const errorController = require("./controllers/error");
 const { User, prepopulateUsers } = require("./models/User");
 const { Product, prepopulateProducts } = require("./models/Product");
 const authRouter = require("./routes/auth.js");
+const { checkIfHashCreatedByServer } = require("./util/common.js");
 
 // app.set('view engine', 'pug');
 // app.set('views', 'views'); // not needed for this case, actually
@@ -29,6 +31,8 @@ app.set("views", "views"); // not needed for this case, actually
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
+app.use(cookieParser());
+
 // mock authentication, i.e. get user who's making the request
 app.use(async (req, res, next) => {
   // req.user = await User.findById(1);
@@ -38,6 +42,36 @@ app.use(async (req, res, next) => {
     email: firstUser?.email,
     id: firstUser?._id,
   });
+  next();
+});
+
+app.use(async (req, res, next) => {
+  // mock auth logic
+
+  //// withband without cookie-parser
+  // res.locals.isAuthenticated =
+  //   req.get("Cookie").includes("loggedIn=true") ||
+  //   req?.cookies?.["loggedIn"] == "true";zz
+
+  // console.log(
+  //   "req.cookies",
+  //   req.get("Cookie"),
+  //   req.cookies,
+  //   res.locals.isAuthenticated
+  // );
+
+  // a better auth (but not scalable)
+  const email = req.cookies?.["email"];
+  const password = req.cookies?.["password"];
+  const authCookieSomeTerm = req.cookies?.["authCookieSomeTerm"];
+  console.log({ email, password, authCookieSomeTerm });
+
+  res.locals.isAuthenticated = checkIfHashCreatedByServer(
+    authCookieSomeTerm,
+    email,
+    password
+  );
+
   next();
 });
 

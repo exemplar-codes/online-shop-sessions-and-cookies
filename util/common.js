@@ -46,4 +46,34 @@ const dateToTimeStampString = (dateString, haveAt = true) => {
   return "";
 };
 
-module.exports = { extractKeys, dateToTimeStampString };
+const crypto = require("crypto");
+const SERVER_SALT_DEFAULT = "serverSaltXYZ_default_2elh21yxer2lbr6734r";
+
+const generateHash = (email, password, salt = SERVER_SALT_DEFAULT) => {
+  const hash = crypto
+    .createHash("sha256")
+    .update(`${email}:${password}:${salt}`)
+    .digest("hex");
+  return hash;
+};
+
+const checkIfHashCreatedByServer = (
+  hashToTest,
+  email,
+  password,
+  salt = SERVER_SALT_DEFAULT
+) => {
+  const hashCreatedByServer = crypto
+    .createHash("sha256")
+    .update(`${email}:${password}:${salt}`)
+    .digest("hex");
+
+  return hashCreatedByServer === hashToTest;
+};
+
+module.exports = {
+  extractKeys,
+  dateToTimeStampString,
+  generateHash,
+  checkIfHashCreatedByServer,
+};
