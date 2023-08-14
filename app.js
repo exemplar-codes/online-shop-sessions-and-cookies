@@ -29,8 +29,18 @@ app.set("views", "views"); // not needed for this case, actually
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
+app.use(require("cookie-parser")());
+
 // mock authentication, i.e. get user who's making the request
 app.use(async (req, res, next) => {
+  // trying out the cookie parser
+  // res.cookie("isLoggedInAug9", 23);
+  res.setHeader("set-cookie", "isLoggedInAug9=; max-age=0;");
+  res.cookie("abce1", "def");
+  // res.setHeader("set-cookie", "abc=; max-age=0;");
+  res.clearCookie("abce");
+
+  console.log(req.cookies, req.headers.cookie);
   // req.user = await User.findById(1);
   const [firstUser = null] = await User.find(); // as of now, this is the sample user
   req.user = firstUser;
