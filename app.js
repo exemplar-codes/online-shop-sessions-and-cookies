@@ -31,6 +31,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use(require("cookie-parser")());
 
+// learning flipper flags - to hide logs if they become too much
+app.use((req, res, next) => {
+  res.locals = {
+    ...res.locals,
+    showAuthLog: true,
+    showCookiesLog: true,
+  };
+
+  next();
+});
+
 // mock authentication, i.e. get user who's making the request
 app.use(async (req, res, next) => {
   // trying out the cookie parser
@@ -40,14 +51,19 @@ app.use(async (req, res, next) => {
   // res.setHeader("set-cookie", "abc=; max-age=0;");
   res.clearCookie("abce");
 
-  console.log(req.cookies, req.headers.cookie);
+  if (res.locals.showCookiesLog) {
+    console.log(req.cookies, req.headers.cookie);
+  }
+
   // req.user = await User.findById(1);
   const [firstUser = null] = await User.find(); // as of now, this is the sample user
   req.user = firstUser;
-  console.log("Mock authentication success", {
-    email: firstUser?.email,
-    id: firstUser?._id,
-  });
+
+  if (res.locals.showAuthLog)
+    console.log("Mock authentication success", {
+      email: firstUser?.email,
+      id: firstUser?._id,
+    });
   next();
 });
 
